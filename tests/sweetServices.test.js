@@ -420,4 +420,22 @@ describe("Sweet Shop - Add Sweets", () => {
       "Insufficient stock"
     );
   });
+    
+    
+  test("should increase quantity when restocking", () => {
+    const sweet = {
+      id: 10003,
+      name: "Barfi",
+      category: "Milk-Based",
+      price: 25,
+      quantity: 10,
+    };
+
+    service.addSweet(sweet);
+
+    service.restockSweet(10003, 5);
+
+    const updated = service.getAllSweets().find((s) => s.id === 10003);
+    expect(updated.quantity).toBe(15);
+  });
 });
