@@ -55,6 +55,8 @@ class SweetService {
       if (maxPrice != null && sweet.price > maxPrice) return false;
       return true;
     });
+      
+
     }
     
     
