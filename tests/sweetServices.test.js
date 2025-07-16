@@ -46,9 +46,6 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(() => service.addSweet(sweet2)).toThrow(/Sweet ID must be unique/); // ✅ use RegExp
   });
 
-    
-    
-  
   test("should throw error if sweet object is missing required fields", () => {
     const incompleteSweet = {
       id: 1002,
@@ -61,5 +58,22 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(() => service.addSweet(incompleteSweet)).toThrow(
       "Invalid sweet object"
     );
+  });
+    
+    
+  test("should delete a sweet by ID", () => {
+    const sweet = {
+      id: 2001,
+      name: "Rasgulla",
+      category: "Milk-Based",
+      price: 15,
+      quantity: 25,
+    };
+
+    service.addSweet(sweet);
+    service.deleteSweet(2001); // 🔴 deleteSweet() not implemented yet
+
+    const sweets = service.getAllSweets();
+    expect(sweets.length).toBe(0);
   });
 });
