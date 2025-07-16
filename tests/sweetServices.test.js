@@ -24,7 +24,7 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(sweets.length).toBe(1);
     expect(sweets[0]).toEqual(sweet);
   });
-    
+
   test("should not allow adding sweets with duplicate IDs", () => {
     const sweet1 = {
       id: 1001,
@@ -35,15 +35,16 @@ describe("Sweet Shop - Add Sweets", () => {
     };
 
     const sweet2 = {
-      id: 1001,
-      name: "Gulab Jamun",
+      id: 1001, // same ID as sweet1
+      name: "Rasgulla",
       category: "Milk-Based",
-      price: 10,
+      price: 40,
       quantity: 15,
     };
 
     service.addSweet(sweet1);
-    expect(() => service.addSweet(sweet2)).toThrow("Sweet ID must be unique");
+    expect(() => service.addSweet(sweet2)).toThrow(/Sweet ID must be unique/); // ✅ use RegExp
   });
+
     
 });
