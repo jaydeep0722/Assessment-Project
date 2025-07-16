@@ -200,4 +200,53 @@ describe("Sweet Shop - Add Sweets", () => {
       expect(ids).not.toContain(3002);
     });
 
+
+    test("should ensure each sweet has all required fields", () => {
+      const sweet = {
+        id: 6001,
+        name: "Soan Papdi",
+        category: "Flour-Based",
+        price: 30,
+        quantity: 50,
+      };
+
+      service.addSweet(sweet);
+
+      const result = service.getAllSweets();
+
+      expect(result.length).toBe(1);
+
+      const returnedSweet = result[0];
+
+      const expectedFields = ["id", "name", "category", "price", "quantity"];
+      for (const field of expectedFields) {
+        expect(returnedSweet).toHaveProperty(field);
+      }
+    });
+
+
+    test("should return deep clones of sweets to prevent external mutation", () => {
+      const sweet = {
+        id: 7001,
+        name: "Rasgulla",
+        category: "Milk-Based",
+        price: 25,
+        quantity: 20,
+      };
+
+      service.addSweet(sweet);
+
+      const sweets = service.getAllSweets();
+
+      // Try mutating the returned object
+      sweets[0].name = "Hacked Sweet";
+      sweets[0].quantity = 0;
+
+      // Original data must stay intact
+      const original = service.getAllSweets()[0];
+
+      expect(original.name).toBe("Rasgulla");
+      expect(original.quantity).toBe(20);
+    });
+      
 });
