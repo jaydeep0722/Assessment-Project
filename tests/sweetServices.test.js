@@ -291,5 +291,37 @@ describe("Sweet Shop - Add Sweets", () => {
         service.searchSweets({ minPrice: "twenty" }); // ❌ invalid
       }).toThrow("Price filter must be a number");
     });
+
+
+    test("should support partial category search (e.g., 'Nut' matches 'Nut-Based')", () => {
+      const sweet1 = {
+        id: 9201,
+        name: "Kaju Katli",
+        category: "Nut-Based",
+        price: 50,
+        quantity: 20,
+      };
+      const sweet2 = {
+        id: 9202,
+        name: "Badam Barfi",
+        category: "Nut-Based",
+        price: 40,
+        quantity: 10,
+      };
+      const sweet3 = {
+        id: 9203,
+        name: "Gajar Halwa",
+        category: "Vegetable-Based",
+        price: 30,
+        quantity: 15,
+      };
+
+      service.addSweet(sweet1);
+      service.addSweet(sweet2);
+      service.addSweet(sweet3);
+
+      const result = service.searchSweets({ category: "Nut" }); // Partial category
+      expect(result.length).toBe(2); // Should return 2 sweets with "Nut-Based"
+    });
     
 });
