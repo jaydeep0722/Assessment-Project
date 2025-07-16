@@ -276,4 +276,30 @@ describe("Sweet Shop - Add Sweets", () => {
       expect(results[0].id).toBe(9001);
     });
       
+
+    test("should return sweets matching category case-insensitively", () => {
+      const sweet1 = {
+        id: 8001,
+        name: "Kalakand",
+        category: "Milk-Based",
+        price: 35,
+        quantity: 20,
+      };
+
+      const sweet2 = {
+        id: 8002,
+        name: "Kaju Katli",
+        category: "Nut-Based",
+        price: 50,
+        quantity: 10,
+      };
+
+      service.addSweet(sweet1);
+      service.addSweet(sweet2);
+
+      const result = service.searchSweets({ category: "milk-based" }); // lowercase query
+
+      expect(result.length).toBe(1);
+      expect(result[0].name).toBe("Kalakand");
+    });
 });
