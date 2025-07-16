@@ -28,6 +28,7 @@ class SweetService {
     if (index === -1) {
       throw new Error("Sweet not found");
     }
+
     this.sweets.splice(index, 1);
   }
 }
