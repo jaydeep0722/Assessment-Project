@@ -389,4 +389,35 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(updated.quantity).toBe(25);
   });
  
+  test("should throw error if purchasing more than available quantity", () => {
+    const sweet = {
+      id: 10002,
+      name: "Jalebi",
+      category: "Flour-Based",
+      price: 10,
+      quantity: 100,
+    };
+
+    service.addSweet(sweet);
+
+    expect(() => service.purchaseSweet(10002, 15)).toThrow(
+      "Insufficient stock"
+    );
+  });
+    
+  test("should throw error if purchasing more than available quantity", () => {
+    const sweet = {
+      id: 10002,
+      name: "Jalebi",
+      category: "Flour-Based",
+      price: 10,
+      quantity: 10,
+    };
+
+    service.addSweet(sweet);
+
+    expect(() => service.purchaseSweet(10002, 15)).toThrow(
+      "Insufficient stock"
+    );
+  });
 });
