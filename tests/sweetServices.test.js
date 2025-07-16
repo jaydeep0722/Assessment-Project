@@ -369,4 +369,29 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(result.length).toBe(1);
     expect(result[0].name).toBe("Jalebi"); // ❌ wrong expectation — should fail
   });
+    
+  test(" should pass: returns correct sweet when searched by exact name", () => {
+    const sweet1 = {
+      id: 9701,
+      name: "Gulab Jamun",
+      category: "Milk-Based",
+      price: 20,
+      quantity: 30,
+    };
+    const sweet2 = {
+      id: 9702,
+      name: "Jalebi",
+      category: "Flour-Based",
+      price: 25,
+      quantity: 25,
+    };
+
+    service.addSweet(sweet1);
+    service.addSweet(sweet2);
+
+    const result = service.searchSweets({ name: "Gulab Jamun" });
+
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe("Gulab Jamun"); // correct expectation
+  });
 });
