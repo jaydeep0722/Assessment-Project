@@ -276,30 +276,20 @@ describe("Sweet Shop - Add Sweets", () => {
       expect(results[0].id).toBe(9001);
     });
       
-
-    test("should return sweets matching category case-insensitively", () => {
-      const sweet1 = {
-        id: 8001,
-        name: "Kalakand",
+    test("should throw error if minPrice is not a number", () => {
+      const sweet = {
+        id: 9010,
+        name: "Barfi",
         category: "Milk-Based",
-        price: 35,
-        quantity: 20,
-      };
-
-      const sweet2 = {
-        id: 8002,
-        name: "Kaju Katli",
-        category: "Nut-Based",
-        price: 50,
+        price: 30,
         quantity: 10,
       };
 
-      service.addSweet(sweet1);
-      service.addSweet(sweet2);
+      service.addSweet(sweet);
 
-      const result = service.searchSweets({ category: "milk-based" }); // lowercase query
-
-      expect(result.length).toBe(1);
-      expect(result[0].name).toBe("Kalakand");
+      expect(() => {
+        service.searchSweets({ minPrice: "twenty" }); // ❌ invalid
+      }).toThrow("Price filter must be a number");
     });
+    
 });
