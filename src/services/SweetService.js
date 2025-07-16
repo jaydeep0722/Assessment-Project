@@ -24,6 +24,10 @@ class SweetService {
   }
 
   deleteSweet(id) {
+    if (typeof id !== "number") {
+      throw new Error("Sweet ID must be a number");
+    }
+
     const index = this.sweets.findIndex((s) => s.id === id);
     if (index === -1) {
       throw new Error("Sweet not found");
