@@ -47,4 +47,19 @@ describe("Sweet Shop - Add Sweets", () => {
   });
 
     
+    
+  
+  test("should throw error if sweet object is missing required fields", () => {
+    const incompleteSweet = {
+      id: 1002,
+      name: "Milk Cake",
+      price: 25,
+      quantity: 10,
+      // category is missing
+    };
+
+    expect(() => service.addSweet(incompleteSweet)).toThrow(
+      "Invalid sweet object"
+    );
+  });
 });
