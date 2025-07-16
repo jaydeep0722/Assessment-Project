@@ -20,7 +20,7 @@ class SweetService {
   }
 
   getAllSweets() {
-    return this.sweets;
+    return [...this.sweets]; // return a copy, not the reference
   }
 
   deleteSweet(id) {
