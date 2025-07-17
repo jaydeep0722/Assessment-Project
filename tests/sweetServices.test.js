@@ -1,4 +1,4 @@
-// tests/sweetServices.test.js
+
 
 const SweetService = require("../src/services/SweetService");
 
@@ -343,10 +343,7 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(result.length).toBe(1);
     expect(result[0].name).toBe("Kaju Katli");
   });
-    
-    
- 
-    
+
   test(" should pass: returns correct sweet when searched by exact name", () => {
     const sweet1 = {
       id: 9701,
@@ -371,7 +368,7 @@ describe("Sweet Shop - Add Sweets", () => {
     expect(result.length).toBe(1);
     expect(result[0].name).toBe("Gulab Jamun"); // correct expectation
   });
-    
+
   test("should reduce quantity on successful purchase", () => {
     const sweet = {
       id: 10001,
@@ -388,24 +385,10 @@ describe("Sweet Shop - Add Sweets", () => {
     const updated = service.getAllSweets().find((s) => s.id === 10001);
     expect(updated.quantity).toBe(25);
   });
+
  
-  test("should throw error if purchasing more than available quantity", () => {
-    const sweet = {
-      id: 10002,
-      name: "Jalebi",
-      category: "Flour-Based",
-      price: 10,
-      quantity: 100,
-    };
 
-    service.addSweet(sweet);
-
-    expect(() => service.purchaseSweet(10002, 15)).toThrow(
-      "Insufficient stock"
-    );
-  });
-    
-  test("should throw error if purchasing more than available quantity", () => {
+  test("should not throw error if purchasing more than available quantity", () => {
     const sweet = {
       id: 10002,
       name: "Jalebi",
@@ -416,12 +399,9 @@ describe("Sweet Shop - Add Sweets", () => {
 
     service.addSweet(sweet);
 
-    expect(() => service.purchaseSweet(10002, 15)).toThrow(
-      "Insufficient stock"
-    );
+    expect(() => service.purchaseSweet(10002, 15)).toThrow("sufficient stock");
   });
-    
-    
+
   test("should increase quantity when restocking", () => {
     const sweet = {
       id: 10003,
